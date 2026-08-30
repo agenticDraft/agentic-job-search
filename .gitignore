@@ -1,0 +1,14 @@
+# VSC
+.DS_Store
+*.bak
+.idea
+.history/
+.playwright-mcp/
+
+# Ensure these files are tracked
+!CLAUDE.md
+!AGENTS.md
+
+# Project specific
+docs/
+job-feed/
