@@ -51,7 +51,7 @@ Ne duplira se između sekcija.
 
 ### Lead i enablement — dokazano, ne samoprocena
 
-*(dodato 31.07.2026 iz `assets/Reference-Letter-Zoran_Markovic.pdf`. Letter je potpisao
+*(dodato 31.07.2026 iz `assets/Reference_Letter_ZoranMarkovic.pdf`. Letter je potpisao
 Gerhard Gerner, **CEO Netcentric Deutschland GmbH**, i nosi nemačku ocenu 1 — „the
 performance of Zoran always earned our full recognition in every respect". Sve niže su
 citati iz njega, dakle tvrdnje koje potvrđuje treće lice, ne CV.)*
@@ -227,6 +227,29 @@ motion library like Motion or GSAP."*
 **Kako se ocenjuje oglas:** ako je animacija jedna stavka među mnogima — nijansa, ne obara.
 Ako je „interaction design and animation" u accountabilities kao stalan posao (Design
 Engineer role) — spušta ocenu, jer se ta rola bira po tome.
+
+### Poslovna automatizacija — low-code, evals, operativni procesi
+
+*(potvrđeno 26.09.2026, Jobgether „Senior Automation Specialist".)*
+
+**Ima:** agentic automatizaciju u produkciji (v. § Najjače) i ručnu proveru na stvarnim
+tiketima pre rollout-a — to pokriva „manual QA" i „real-world testing".
+
+**Nema:**
+
+- **n8n / Make / Zapier u produkciji** — isprobao, nije pustio u produkciju.
+- **Evals sa pragom** — nema fiksan set slučajeva ni eksplicitan prag prolaznosti pre
+  rollout-a izmene skilla/agenta. Provera je ručna.
+- **Automatizacija za ne-inženjere** — sva njegova automatizacija je SDLC/developer
+  tooling; korisnici su bili developeri. Nema metriku „sati ručnog rada uklonjeno
+  nedeljno".
+
+**Tačna formulacija:** *„My automation work is agentic and in production, but it's been
+for engineering teams — I've tried n8n, not shipped with it, and my pre-rollout checks
+are manual, not a formal eval set with thresholds."*
+
+**Kako se ocenjuje oglas:** „AI automation / operations automation" role gde su n8n,
+evals i „hours saved" hard req — pada ispod 45%, posebno kod AI matching posrednika.
 
 ### Pre-sales / Solutions Engineering
 
@@ -574,7 +597,7 @@ pretpostavljaj.**
     13.08.2026.)* § Lead i enablement kaže „CEO **Netcentric** Deutschland GmbH", a oba
     master CV-a pišu „CEO of **Cognizant Netcentric** Deutschland GmbH". Potpisan dokument
     se citira po imenu i ta dva se moraju složiti. *Proveri u
-    `assets/Reference-Letter-Zoran_Markovic.pdf` i poravnaj profil sa dokumentom, ne
+    `assets/Reference_Letter_ZoranMarkovic.pdf` i poravnaj profil sa dokumentom, ne
     obrnuto.*
 
 13. **`assets/linkedIn-aboutMe.md` — „led and mentored distributed teams of up to 40

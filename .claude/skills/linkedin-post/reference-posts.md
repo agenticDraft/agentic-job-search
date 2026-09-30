@@ -1,6 +1,8 @@
 # Reference posts — the voice to match
 
-Two posts that define the target voice. Read the rhythm, not just the content.
+Posts A and B define the voice: read the rhythm, not just the content. Both predate the
+six-block skeleton in `SKILL.md` — take their rhythm and grounding, not their structure or
+their endings. Post C is the reference for the current skeleton.
 
 ---
 
@@ -69,7 +71,54 @@ Agree? Let's discuss in the comments. 👇
 - Grounded in real work ("I've been working on building AI-driven delivery pipelines").
 - Enumerated section is "Label: explanation", three items, no bullet characters.
 - Ends with a stake for the reader, then one short discussion invite plus hashtags.
+- Do not copy the ending: "Agree? Let's discuss in the comments. 👇" is what we no longer
+  do. The closing line is now a question answerable from experience (see Post C). Also,
+  this post has four em dashes; the rule is at most one.
 
-Tags to be used when appropriate at the end of posts: #AI #SoftwareEngineering #TechLeadership #AEM #Automation #SeniorDeveloper #FutureOfWork
-#EnterpriseAI #AIStrategy #PlatformEngineering #DigitalTransformation #TechLeadership hashtag#AIAutomation hashtag
-#AgenticAI hashtag#RequirementsEngineering hashtag#EnterpriseAI hashtag#SDLC
+---
+
+## Post C — Rule that was optional (current skeleton)
+
+Adapted from published post 3 (`linkedIn-posts/3-post.md`), restructured into the six
+blocks. Facts are the original's. Two lines are new: the ➡️ sentence and the ❓ question.
+
+⚠️ The AI adoption problem wasn't the rule. It was that the rule was optional.
+
+⛔ At BAT the workflow was clear: write the spec, read the AI output, explain what the code does, test it, then open the PR.
+For seniors it clicked. For juniors, "explain what the code does" was the easiest step to skip under deadline pressure.
+Nobody caught it until the PR was already open. Sometimes not even then.
+
+➡️ A rule that depends on memory under pressure is a suggestion.
+
+❓ What do you do when the people who need the rule most are the ones least able to follow it on a bad day?
+
+✅ I stopped relying on people to remember it. I put it in the PR template.
+No PR opens without a written explanation of what changed and why. No explanation, no review.
+The rule didn't change. It stopped depending on discipline and started depending on process.
+
+📚 A checklist doesn't need someone to remember it. It needs someone to build it in.
+Where in your workflow are you still trusting discipline instead of enforcing it?
+
+#AI #SoftwareEngineering #TechLeadership #AgenticAI #AIAdoption #EnterpriseAI
+
+---
+Image: screenshot of the PR template with the "what changed and why" field
+
+**What to learn from it:**
+- One emoji per block, nothing else decorative. Blocks stay short: 1–4 lines.
+- The hook is a flat claim that names the real problem, with no question mark.
+- ⛔ carries the concrete grounding; ➡️ is a single line, not a paragraph.
+- ❓ sits mid-post and is about the reader's situation. The closing question is a
+  different line, at the end of 📚, and asks for their experience.
+- ✅ switches to "I" at the moment of the decision, and says what changed in the process.
+- The image line is separate from the paste-ready text.
+
+---
+
+## Hashtags
+
+Use 4–7 per post, on the last line, chosen for the post's topic:
+
+#AI #AgenticAI #AIAdoption #AIAutomation #AIStrategy #SoftwareEngineering #TechLeadership
+#SeniorDeveloper #EnterpriseAI #PlatformEngineering #DigitalTransformation
+#RequirementsEngineering #SDLC #AEM #Automation #FutureOfWork

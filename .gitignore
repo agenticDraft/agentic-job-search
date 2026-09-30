@@ -10,5 +10,9 @@
 !AGENTS.md
 
 # Project specific
+assets/
 docs/
-job-feed/
+job-search-automation/
+job-search-manual/
+linkedin-posts/ 
+CLAUDE.md

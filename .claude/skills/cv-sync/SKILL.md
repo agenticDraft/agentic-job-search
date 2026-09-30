@@ -20,7 +20,7 @@ below, not something this skill closes on its own.
 
 Read before running:
 
-- The ad file, `linkedIn/prijave/<n>.<Company>.md` — for the `**Track:**` line
+- The ad file, `job-search-manual/prijave/<n>.<Company>.md` — for the `**Track:**` line
   `../job-match/SKILL.md` step 5 already wrote into its evaluation section.
 - `../job-match/candidate-profile.md` § Ima — the only source that can confirm a
   claim is safe to echo.
@@ -40,7 +40,7 @@ Read before running:
 **1. Read the ad, the track, and the matching master CV.** Find the track by marker,
 not by position — the heading it sits under varies per ad:
 
-    grep -n '^[[:space:]]*\*\*Track:\*\*' "linkedIn/prijave/<n>.<Company>.md"
+    grep -n '^[[:space:]]*\*\*Track:\*\*' "job-search-manual/prijave/<n>.<Company>.md"
 
 It reads `**Track:** Frontend — <reason>` or `**Track:** AI Automation SDLC — <reason>`,
 written by `../job-match/SKILL.md` step 5. Never re-classify it here — if the marker is
@@ -60,7 +60,7 @@ claims:
   handling.
 
 **3. Write the variant.** Copy the selected master CV verbatim to
-`linkedIn/prijave/<n>.<Company> - CV.md`, then apply only the term additions found in
+`job-search-manual/prijave/<n>.<Company> - CV.md`, then apply only the term additions found in
 step 2. Nothing else changes — not bullet order, not section length, not phrasing
 beyond the literal term insertion.
 
@@ -80,9 +80,9 @@ skill never finalizes a variant around an unconfirmed gap.
 ## Rendering
 
 ```bash
-pandoc "linkedIn/prijave/<n>.<Company> - CV.md" \
+pandoc "job-search-manual/prijave/<n>.<Company> - CV.md" \
   --pdf-engine=typst --template=assets/cv.typ \
-  -o "linkedIn/prijave/<n>.<Company> - CV.pdf"
+  -o "job-search-manual/prijave/<n>.<Company> - CV.pdf"
 ```
 
 Requires `pandoc` and `typst` (both installed via Homebrew, confirmed in
@@ -90,12 +90,12 @@ Requires `pandoc` and `typst` (both installed via Homebrew, confirmed in
 
 ## Verify
 
-1. `diff "linkedIn/prijave/<n>.<Company> - CV.md" "assets/Zoran Markovic CV - <Track> - design.md"`
+1. `diff "job-search-manual/prijave/<n>.<Company> - CV.md" "assets/Zoran Markovic CV - <Track> - design.md"`
    — every diff line must be a term addition. Any structural difference (new line,
    reordered bullet, changed length) fails this check; revert it.
 2. Every added term traces to `candidate-profile.md` § Ima. Anything that doesn't,
    comes out.
-3. `pdfinfo "linkedIn/prijave/<n>.<Company> - CV.pdf" | grep Pages` — page count must
+3. `pdfinfo "job-search-manual/prijave/<n>.<Company> - CV.pdf" | grep Pages` — page count must
    equal the selected master's page count
    (`pdfinfo "assets/Zoran Markovic CV - <Track>.pdf" | grep Pages`). If it doesn't,
    revert the term addition that caused the overflow — never trim master content to
@@ -106,9 +106,9 @@ Requires `pandoc` and `typst` (both installed via Homebrew, confirmed in
 
 ## Files
 
-- **Ad, input** — `linkedIn/prijave/<n>.<Company>.md`. Don't edit it.
+- **Ad, input** — `job-search-manual/prijave/<n>.<Company>.md`. Don't edit it.
 - **Master CV, input** — one of the two track files under `assets/`. Never edited by
   this skill.
-- **Variant, output** — `linkedIn/prijave/<n>.<Company> - CV.md` / `.pdf`.
+- **Variant, output** — `job-search-manual/prijave/<n>.<Company> - CV.md` / `.pdf`.
 
 `<n>` is the number the ad already carries from `../job-match/SKILL.md`.

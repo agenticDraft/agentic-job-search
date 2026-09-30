@@ -3,7 +3,7 @@
 Dopuna `SKILL.md`. Sva pravila iz njega važe — voice, honesty pass, jedna strana, render.
 Ovde je samo ono što je **drugačije** kad nema oglasa.
 
-Koristi se kad je firma u `linkedIn/lista-oglasa.md` označena kao **INITIATIV**.
+Koristi se kad je firma u `job-search-manual/lista-oglasa.md` označena kao **INITIATIV**.
 Ako firma ima otvoren oglas, ovo se ne koristi — ide normalan `SKILL.md` tok.
 Hladan mejl kad oglas postoji zaobilazi ATS i čita se kao da oglas nije pročitan.
 
@@ -28,7 +28,7 @@ Nemački HR očekuje fiksni skup. Ako nedostaje, prijava se vraća ili ignoriše
 
 - **Anschreiben** — pismo (ovo što pišeš)
 - **Lebenslauf** — CV
-- **Zeugnisse** — `assets/Reference-Letter-Zoran_Markovic.pdf`.
+- **Zeugnisse** — `assets/Reference_Letter_ZoranMarkovic.pdf`.
   Ocena 1, potpisao CEO Netcentric Deutschland. **Najjača karta u paketu.**
   U nemačkom procesu se Arbeitszeugnis traži po difoltu i čita se pažljivo.
 - **`Frühestmöglicher Eintrittstermin`** — datum pročitaj iz
@@ -126,7 +126,7 @@ na BAT delivery harness. Ne mešaj oba u isto pismo — firma sa liste je u jedn
 
 ## Fajlovi
 
-- **Pismo** — `linkedIn/prijave/<n>.<Firma> - Initiativbewerbung.md` → isti pandoc/typst
+- **Pismo** — `job-search-manual/prijave/<n>.<Firma> - Initiativbewerbung.md` → isti pandoc/typst
   render kao u `SKILL.md` § Rendering
 - **Telo mejla** — dodaje se u isti fajl **ispod `---` separatora**, posle YAML-a, pod
   naslovom `## Email body (ne renderuje se)`
@@ -135,7 +135,7 @@ na BAT delivery harness. Ne mešaj oba u isto pismo — firma sa liste je u jedn
   > mejla ide u **zaseban fajl** `<n>.<Firma> - email.md`, a ne u izvor pisma.
   > Renderuj pa proveri da u PDF-u nema tela mejla.
 
-- `<n>` nastavlja globalnu numeraciju iz `linkedIn/` — trenutno od **12**
+- `<n>` nastavlja globalnu numeraciju iz `job-search-manual/` — trenutno od **12**
 
 ## Verifikacija
 

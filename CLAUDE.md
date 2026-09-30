@@ -10,8 +10,15 @@ tržište). Nije softverski proizvod. Dve polovine koje rade zajedno:
 - **`job-search-automation/`** — Node pipeline koji prikuplja oglase i filtrira ih
 - **`.claude/skills/`** — skillovi koji ocenjuju oglase i pišu tekst (cover letter, profil, postovi)
 
-Nije git repo, nema `package.json`, nema `node_modules`, nema testove. Čist Node ESM
-(v24, `node:` moduli + ugrađen `fetch`).
+Git repo (jedan commit do sada), ali bez `package.json`, `node_modules` ili testova. Čist
+Node ESM (v24, `node:` moduli + ugrađen `fetch`).
+
+**`docs/`, `job-search-automation/` i `job-search-manual/` su u `.gitignore`** — to je
+Zoranova privatna radna građa (oglasi, prijave, plan automatizacije, istraživanje tržišta)
+i namerno ne ide u repo. `.gitignore` pokriva i `assets/` i `linkedin-posts/`, ali fajlovi
+koji su u njima već commitovani i dalje se prate. Ono što se prati u gitu: `.claude/`,
+`CLAUDE.md`, `README.md`, `LICENSE` i ranije commitovani fajlovi iz `assets/` i
+`linkedIn-posts/`.
 
 **Jezik:** automatizacija (kod, komentari, identifikatori, `job-match` i `job-source-recon`
 skillovi) je na srpskom bez dijakritike u kodu. `cover-letter`, `linkedin-post` i
@@ -27,11 +34,15 @@ node run.mjs --dry                  # pun prolaz bez ijednog upisa — POKRENI P
 node run.mjs                        # pun prolaz, piše fajlove i seen.json (1–2 min)
 node run.mjs --podesavanja          # pokaži šta je pročitano iz podesavanja.json i stani
 node run.mjs --provera              # duplirane vrednosti u projektu; exit 1 ako nađe
-node run.mjs --izvori=remotely      # samo određeni izvori (arbeitnow, remotely, workwise)
+node run.mjs --izvori=remotely      # samo određeni izvori (arbeitnow, remotely, workwise, jobgether)
 node run.mjs --all                  # preskoči filter struke
 node run.mjs --max-pages=2          # skrati arbeitnow prolaz
 node run.mjs --dry --from-raw=data/raw/arbeitnow-<datum>.json.gz   # ponovi nad snimkom
 ```
+
+`--from-raw` zna `arbeitnow`, `linkedin-mail` i `jobgether` snimke (remotely i workwise
+nemaju replay). **`--dry` ipak upisuje `data/prolaz-<datum>.json`** — ne dira dosijee ni
+`seen.json`, ali pregazi današnji izveštaj prolaza.
 
 **Dedupe se proverava samo preko `--from-raw`**, nikad ponovljenim mrežnim pozivom — izvor
 je živ i vremenski sortiran, pa paginacija nije atomska i drugi prolaz legitimno nađe nove
@@ -46,26 +57,33 @@ find novi-oglasi proveriti -name '*.md' -type f -exec grep -q "Prikupljeno autom
 Render cover lettera (iz korena; traži `pandoc` + `typst` iz Homebrew-a):
 
 ```bash
-pandoc "linkedIn/prijave/<n>.<Firma> - Cover letter.md" \
+pandoc "job-search-manual/prijave/<n>.<Firma> - Cover letter.md" \
   --pdf-engine=typst --template=.claude/skills/cover-letter/letter.typ \
-  -o "linkedIn/prijave/<n>.<Firma> - Cover letter.pdf"
+  -o "job-search-manual/prijave/<n>.<Firma> - Cover letter.pdf"
 pdfinfo "<isti>.pdf" | grep Pages     # mora biti Pages: 1
 ```
+
+> **Istorija putanja:** ručni folder se zvao `linkedIn/`, pa `job-feed/`, a od 28.09.2026
+> je `job-search-manual/`. Pipeline je bio pod `docs/job-search-automation/`, sad je u
+> korenu kao `job-search-automation/`. `config.mjs` i skillovi su usklađeni sa novim
+> putevima. Ako negde naiđeš na `linkedIn/...`, `job-feed/...` ili
+> `docs/job-search-automation/...`, to je zaostatak — ispravi ga.
 
 ## Arhitektura pipeline-a
 
 `run.mjs` je orkestrator; svaka faza je jedan modul u `src/`:
 
-1. **ingest** — `src/ingest/{arbeitnow,remotely,workwise}.mjs`, svaki vraća `{ jobs, raw }`.
+1. **ingest** — `src/ingest/{arbeitnow,remotely,workwise,jobgether}.mjs`, svaki vraća `{ jobs, raw }`.
    Rade na golom `fetch`-u; browser treba samo za izviđanje novog izvora (skill
    `job-source-recon`). Sirov snimak ide u `data/raw/<izvor>-<datum>.json.gz` (gzip jer je
    nekomprimovano ~24 MB dnevno).
 2. **normalize** — `src/normalize.mjs`, svi izvori u isti oblik + `companyToken`.
 3. **filter struke** — regex iz `podesavanja.json` (`struka.naslov`, `struka.tagovi`).
    **Nije tvrdi bloker**, samo izbacuje oglase van profesije.
-4. **dedupe** — `src/dedupe.mjs`. Dva ključa: tvrdi iz URL-a (`an:`, `rm:`, `ww:`, `li:`) i
+4. **dedupe** — `src/dedupe.mjs`. Dva ključa: tvrdi iz URL-a (`an:`, `rm:`, `ww:`, `li:`, `jg:`) i
    meki `firma + normalizovan naslov`, jer isti oglas sa dva izvora ima dva URL-a.
-5. **blokeri + rang** — `src/blockers.mjs` (7 pravila, samo ona sa strane oglasa),
+5. **blokeri + rang** — `src/blockers.mjs` (6 pravila — `remote`, `architect`,
+   `aem-backend`, `nivo`, `zakljucano`, `ugovor` — samo ona sa strane oglasa),
    `src/rank.mjs` (težine za sortiranje, **ne ocena**).
 6. **upis** — `src/dossier.mjs` piše `.md` dosijee; izveštaj prolaza u `data/prolaz-<datum>.json`.
 
@@ -82,29 +100,35 @@ kod sme samo da **imenuje** — `job-match` korak 3 zahteva da se za njih pita, 
 
 Automatizacija piše u `job-search-automation/`:
 
-- `novi-oglasi/<n>.<Firma>.md` — prošlo sve blokere, spremno za `job-match`
-- `proveriti/<Firma> - <naslov>.md` — palo na bloker, sa navedenim dokazom. **Nije odbačeno** —
+- `novi-oglasi/<n>.<Firma> - <datum>.md` — prošlo sve blokere, spremno za `job-match`
+  (`<datum>` = dan prolaza u kom je oglas nađen)
+- `proveriti/<Firma> - <naslov> - <datum>.md` — palo na bloker, sa navedenim dokazom. **Nije odbačeno** —
   ime je namerno takvo, jer lažni pozitivac vidiš i vratiš, a propušten oglas ne vidiš nikad
-- `prijave/`, `odbaceni/` — lokalno prazni; prava istorija je u `linkedIn/`
+- `prijave/`, `odbaceni/` — lokalno prazni; prava istorija je u `job-search-manual/`
 
-Ocenjivanje radi u `linkedIn/` (nasleđeno, i dalje aktuelno):
+Ocenjivanje radi u `job-search-manual/` (nasleđeno od bivših `linkedIn/` i `job-feed/`):
 
-- `linkedIn/novi-oglasi/` → `linkedIn/prijave/` ili `linkedIn/odbaceni/`
+- `job-search-manual/novi-oglasi/` → `job-search-manual/prijave/` ili `job-search-manual/odbaceni/`
 - **Verdikt nosi folder, a ne ime fajla.** Nema `-match`/`-no-match` sufiksa (promenjeno
   31.07.2026; stariji fajlovi sa sufiksom su zatečeno stanje, ne obrazac). Jedini sufiks u
   upotrebi je `-duplicate.md`.
 
-Dedupe čita **oba** skupa foldera. Ako bi čitao samo lokalne, cela istorija ocena
+Dedupe čita **oba** skupa foldera preko `LEGACY_DIRS` u `config.mjs`, koji pokazuje na
+`job-search-manual/{novi-oglasi,prijave,odbaceni}`. Da čita samo lokalne, istorija ocena
 (Recare, Hostaway, Genki, Helsing…) bi se vratila kao „novo".
 
 ## Jedna vrednost, jedan vlasnik
 
-Prag plate je jednom stajao na osam mesta i sedam ih je tiho lagalo. Podela koja to rešava:
+Prag plate je jednom stajao na osam mesta i sedam ih je tiho lagalo. Od 07.08.2026 plata
+više uopšte ne filtrira oglase u pipeline-u — `plata.pragEur` je uklonjen iz
+`podesavanja.json` (fajl to eksplicitno komentariše, ne vraćaj ga). Ono što ostaje kao
+princip:
 
-- **`job-search-automation/podesavanja.json`** drži **koliko** — jedino mesto gde broj stoji
-  kao vrednost (`plata.pragEur`, termini struke, izvori)
-- **`.claude/skills/job-match/candidate-profile.md` § Uslovi** drži **zašto** — JAEG po
-  godinama, izvori, obrazloženja
+- **`job-search-automation/podesavanja.json`** drži **koliko**, za sve što pipeline
+  stvarno filtrira — jedino mesto gde takav broj stoji kao vrednost (termini struke, izvori)
+- **`.claude/skills/job-match/candidate-profile.md` § Uslovi** drži **zašto** — uključujući
+  broj za `Gehaltsvorstellung` (JAEG po godinama, izvori, obrazloženja), koji pipeline više
+  ne čita nego ga Zoran ručno unosi u prijave
 - **sve ostalo pokazuje na jedno od ta dva i broj ne ponavlja**
 
 `node run.mjs --provera` to nadgleda i prijavljuje ponavljanja sa `fajl:red`. Legitimni
@@ -127,8 +151,12 @@ i to se glasno prijavljuje na početku prolaza.
   tvrdnje; rupa ide na pitanje Zoranu, isto kao u `job-match` koraku 3. Zove ga
   `cover-letter` u svom honesty koraku, ne poziva se direktno.
 - **`optimize-profile`**, **`linkedin-post`** — LinkedIn profil i postovi; `linkedin-post`
-  § Voice je zajednička referenca za ton u svim tekstovima.
+  § Voice je zajednička referenca za ton u svim tekstovima. Novi postovi idu u
+  `linkedIn-posts/<n>-post.md`.
 - **`job-source-recon`** — izviđa nov izvor oglasa i uvezuje ga u pipeline.
+- **`linkedin-mail`** — čita LinkedIn job-alert mejlove preko Gmail MCP-a (LinkedIn se ne
+  skrejpuje direktno), dopunjava pun opis oglasa sa sajta firme/ATS-a, i gura ih u isti
+  pipeline preko `--izvori=linkedin-mail --from-raw=...`.
 
 **Dva master CV-a, jedan track po oglasu.** `assets/Zoran Markovic CV - Frontend - design.md`
 i `assets/Zoran Markovic CV - AI Automation SDLC - design.md`; oba se renderuju kroz
@@ -141,10 +169,14 @@ Podržavajući fajlovi koje skillovi čitaju: `assets/linkedIn-aboutMe.md`,
 
 ## Ostali folderi
 
-- `learning-plan/` — šta Zoran treba da nauči pre intervjua, prioritizovano po rupama iz oglasa
-- `istrazivanje-trziste/` — **odvojen projekat**: istraživanje IT tržišta u Srbiji, nema veze
-  sa pipeline-om za oglase
+- `docs/PLAN-automatizacije.md` — plan automatizacije (Dodatak A: izmereni izvori);
+  čitaju ga `job-source-recon` i `linkedin-mail`
+- `docs/istrazivanje-trziste/` — **odvojen projekat**: istraživanje IT tržišta u Srbiji,
+  nema veze sa pipeline-om za oglase
+- `docs/drafts/`, `docs/superpowers/` — radne beleške i planovi/specifikacije, ne
+  referenciraju ih skillovi
 - `assets/` — CV, sertifikati, reference letter, About tekst
+- `linkedIn-posts/` — objavljeni LinkedIn postovi (`<n>-post.md`)
 - `.playwright-mcp/`, `.history/` — artefakti alata, ne diraj
 
 ## Ako nešto pukne

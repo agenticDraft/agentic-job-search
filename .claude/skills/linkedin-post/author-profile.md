@@ -1,6 +1,8 @@
 # Who is writing — Zoran Markovic
 
-Source: `assets/zoran-linkedIn-cv.pdf`. This is the well the posts draw from.
+Source: assets/Zoran Markovic CV - AI Automation SDLC - design.md
+
+This is the well the posts draw from.
 Every claim in a post should be traceable to something here — or to something the user tells you in the conversation. Nothing else.
 
 ## Positioning
@@ -44,7 +46,7 @@ credibility. Use it by *showing* the vantage point, never by listing the résum�
 
 - Default audience: senior engineers, tech leads, engineering managers. Peers, not juniors.
 - Strongest lane: where agentic AI meets real delivery constraints in large enterprises.
-  Second: the human side of the tech lead role. 
+  Second: the human side of the tech lead role.
   Third: AEM/frontend architecture.
 - Client names are already public on the profile, so BAT / Henkel / Mercedes-Benz can be named — but prefer "a global multi-brand platform" unless naming adds something.
 - Never invent metrics. The profile says "reduced cycle time" without a number; keep it that way unless the user supplies a figure.

@@ -142,7 +142,7 @@ on Skills far more than on About prose.
 
 - **Final About text** → `assets/linkedIn-aboutMe.md`. Overwrite it; this is the source
   of truth.
-- **Headline options, skill edits, click order** → `linkedIn/profile-update-checklist.md`.
+- **Headline options, skill edits, click order** → `assets/profile-update-checklist.md`.
   Overwrite — one file per round, not one per date.
 - **Certifications** → don't touch, unless the cross-check shows one genuinely absent
   from the profile.

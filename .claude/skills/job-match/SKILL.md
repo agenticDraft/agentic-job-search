@@ -1,6 +1,6 @@
 ---
 name: job-match
-description: Ocenjuje oglase za posao za Zorana — pošteno meri poklapanje sa njegovim stvarnim profilom, prvo proverava tvrde blokere, i nikad ne izmišlja iskustvo koje nema. Koristi kad nalepi oglas, ubaci fajlove u linkedIn/novi-oglasi/, pita „da li sam dobar match", traži da se oglasi rangiraju ili filtriraju, ili pita da li vredi da se prijavi.
+description: Ocenjuje oglase za posao za Zorana — pošteno meri poklapanje sa njegovim stvarnim profilom, prvo proverava tvrde blokere, i nikad ne izmišlja iskustvo koje nema. Koristi kad nalepi oglas, ubaci fajlove u job-search-manual/novi-oglasi/, pita „da li sam dobar match", traži da se oglasi rangiraju ili filtriraju, ili pita da li vredi da se prijavi.
 ---
 
 # Ocena oglasa
@@ -17,9 +17,9 @@ Ovde ostaje samo **koji ugao i koji track** to pisanje uzima za konkretan oglas.
 ## Pročitaj pre prve ocene
 
 - `candidate-profile.md` — šta Zoran stvarno ume, šta ne, i koje tvrdnje sme da iznese
-- `linkedIn/prijave/` — oglasi koji su prošli. Ovo je skala: pročitaj ih pre prve ocene i
+- `job-search-manual/prijave/` — oglasi koji su prošli. Ovo je skala: pročitaj ih pre prve ocene i
   uporedi nov oglas sa njima. Uzmi ono što jeste tu, ne pretpostavljaj.
-- `linkedIn/odbaceni/` — oglasi koji su pali. Kontra-uzorak: pogledaj zašto su pali, da ne
+- `job-search-manual/odbaceni/` — oglasi koji su pali. Kontra-uzorak: pogledaj zašto su pali, da ne
   preporučiš isti tip ponovo.
 
 **Verdikt nosi folder, ne ime fajla.** Nema `-match` ni `-no-match` suffiksa — fajl u
@@ -35,10 +35,10 @@ sa suffiksom su zatečeno stanje, ne obrazac.)*
 
 Putanje su od korena repoa.
 
-- **Ulaz:** `linkedIn/novi-oglasi/<n>-<oglas>.md` — Zoran nalepi ceo oglas, sa linkom.
+- **Ulaz:** `job-search-manual/novi-oglasi/<n>-<oglas>.md` — Zoran nalepi ceo oglas, sa linkom.
   `<n>` je sledeći slobodan broj.
-- **Prošlo:** `linkedIn/prijave/<n>.<Firma>.md`
-- **Palo:** `linkedIn/odbaceni/<n>.<Firma>.md` — ne ocenjuj ponovo bez pitanja
+- **Prošlo:** `job-search-manual/prijave/<n>.<Firma>.md`
+- **Palo:** `job-search-manual/odbaceni/<n>.<Firma>.md` — ne ocenjuj ponovo bez pitanja
 
 ## Postupak
 
@@ -258,8 +258,8 @@ filter.
 
 Brojevi iz uzorka od 10 oglasa (31.07.2026): moderan FE framework hard req **10/10**,
 testovi **6/10**, AI u zahtevima **2/10**. Ako predloži da pojača AI naglasak da bi prošao,
-podseti ga na to — i **prebroj ponovo** na oglasima koji su trenutno u `linkedIn/prijave/`
-i `linkedIn/odbaceni/`, umesto da citiraš ovaj broj. Uzorak raste, brojevi zastarevaju.
+podseti ga na to — i **prebroj ponovo** na oglasima koji su trenutno u `job-search-manual/prijave/`
+i `job-search-manual/odbaceni/`, umesto da citiraš ovaj broj. Uzorak raste, brojevi zastarevaju.
 
 ## Održavanje
 
@@ -272,6 +272,6 @@ odgovor na podpitanje se upisuje u `candidate-profile.md`**, i kad potvrđuje ru
 obara. Ako se ne upiše, sledeća ocena postavlja isto pitanje i profil nikad ne postane
 potpun.
 
-Skala se održava sama: svaki ocenjen oglas završi u `linkedIn/prijave/` ili
-`linkedIn/odbaceni/` sa dopisanom sekcijom o oceni. Zato korak 6 nije administracija —
+Skala se održava sama: svaki ocenjen oglas završi u `job-search-manual/prijave/` ili
+`job-search-manual/odbaceni/` sa dopisanom sekcijom o oceni. Zato korak 6 nije administracija —
 to je ono što sledećoj oceni daje osnovu.

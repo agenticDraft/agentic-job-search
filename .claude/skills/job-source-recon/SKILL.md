@@ -8,7 +8,7 @@ description: Izviđa nov izvor oglasa za posao i uvezuje ga u job-search-automat
 Zoran daje URL sa **već podešenim filterom**. Posao je: doći do punog teksta svakog oglasa,
 pa ga provući kroz postojeći pipeline. Ne praviti nov pipeline.
 
-**Pročitaj pre početka:** `job-search-automation/PLAN-automatizacije.md`, Dodatak A —
+**Pročitaj pre početka:** `docs/PLAN-automatizacije.md`, Dodatak A —
 tamo su izmereni rezultati za arbeitnow, Indeed, remotely.de i workwise.
 Ako je izvor već tamo, nema izviđanja, samo se koristi zapisano.
 

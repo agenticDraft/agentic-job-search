@@ -2,8 +2,8 @@
 
 Referentna skala. Kad ocenjuješ nov oglas, uporedi sa ovima.
 
-**Gde stoje fajlovi (od 31.07.2026):** prošli u `linkedIn/prijave/`, pali u
-`linkedIn/odbaceni/` *(ranije `odustao/`)*. **Verdikt nosi folder — nema `-match` ni
+**Gde stoje fajlovi (od 31.07.2026):** prošli u `job-search-manual/prijave/`, pali u
+`job-search-manual/odbaceni/` *(ranije `odustao/`)*. **Verdikt nosi folder — nema `-match` ni
 `-no-match` suffiksa.**
 
 ## Statistika iz uzorka (10 oglasa, prebrojano 28.07.2026)
@@ -560,3 +560,56 @@ kandidata (korak 3 se ne pita), nego strukturni bloker na strani oglasa, iste vr
 hybrid ili zaključano okruženje: piše u oglasu, ne u profilu. Vredi dodati u `SKILL.md`
 § Tvrdi blokeri ako se ovakav tip oglasa pojavi ponovo — za sada je jedan primer,
 premalo za novo tvrdo pravilo.
+
+## Odbačeno — Lovehoney Group, „AI Innovation and Enablement Specialist" (26.09.2026)
+
+Hybrid, 3 dana u kancelariji + on-site intervju krug. Tvrd bloker, bez procenta.
+
+**Zašto se beleži:** sadržaj je bio skoro tačno njegov najjači profil — rollout Claude
+Enterprise-a, konfiguracija MCP servera, skills i agenti, Claude Code/Cowork, radionice i
+Champions Programme za ne-inženjere. Isti obrazac kao Oryn: tehnička lista savršena, pada
+na strukturi oglasa. **Redosled provere važi i ovde** — prvo remote, pa tek onda sadržaj;
+dobar sadržaj ne omekšava hybrid.
+
+**Signal za pretragu:** naslovi tipa „AI Enablement", „AI Adoption", „AI Champion" daju
+sadržajni pogodak, ali su često (a) ne-inženjerske role sa „business/economics" diplomom i
+(b) „Specialist" nivo. Na screeningu pitati za nivo i platu pre nego što se uloži u pismo.
+
+## ~38% — Jobgether (posrednik), „Senior Automation Specialist" (26.09.2026)
+
+Provizorno ~50%, spušteno na ~38% — sve tri podpitane rupe potvrđene (n8n samo isproban,
+evals samo ručno, automatizacija samo za inženjere). Odbačeno.
+
+**Pouka 1 — pravilo „<6 godina" se čita po disciplini, ne po broju.** Oglas traži
+„3–5 years in automation". Po slovu pravila to je ad-side bloker bez pitanja. Ali pravilo
+postoji jer takav oglas je *ispod njegovog nivoa* — a u automatizaciji on ima ~15 meseci,
+pa je oglas iznad, ne ispod. **Zoran je odlučio: oceni ga.** Isti princip kao Unframe
+pouka 2: čitaj zašto je filter nastao. *Kandidat za suženje u `SKILL.md` § Tvrdi
+blokeri („<6 godina u njegovoj primarnoj disciplini") — jedan primer, još nije izmenjeno.*
+
+**Pouka 2 — „AI agents with Claude" u hard req nije dovoljan za AI automation role.**
+Najjači green flag iz liste je bio tu, a oglas je ipak pao: rola se bira po n8n-u,
+evals-ima i operativnom domenu, a agent rad je samo jedan od načina da se to isporuči.
+Isto razlikovanje kao Genki/Recare, na trećoj osi: **AI za koga** — za inženjere (njegovo)
+ili za poslovnu operativu (nije).
+
+**Pouka 3 — obrazac „savršen sadržaj, pada na strukturi" se ovde ne ponavlja.** Lovehoney
+i Oryn su pali na strukturi oglasa uz tačan sadržaj. Ovde je struktura prošla (remote-first,
+bez blokera), a pao je sadržaj. Ne mešati ih: naslov sa „AI Automation" ne garantuje
+SDLC sadržaj.
+
+## Odbačeno — NTT DATA, „AI Senior Consultant" (AI Go-to-Market, DACH) (26.09.2026)
+
+Dva ad-side blokera, oba već potvrđena u profilu, pa bez pitanja u koraku 3: **nemački
+kao hard req** („Fluency in German and English" u Basic Qualifications) i **putovanja**
+(„work across DACH and Europe", „business travel time is considered working time").
+
+**Pouka — „Remote work" u benefitima nije isto što i full remote.** Oglas nudi „remote
+work and mobile working from other EU countries", a istovremeno opisuje workshope kod
+klijenata i executive meetings širom DACH-a. Kod konsultantskih i pre-sales rola remote
+znači „nema fiksne kancelarije", ne „nema putovanja". Traži putovanje u opisu posla i u
+benefitima (plaćeno vreme putovanja je jak signal), ne samo reč „remote".
+
+**Signal za pretragu:** „AI Consultant" / „AI Go-to-Market" u velikim DACH
+konsultantskim kućama verovatno često nosi nemački i putovanja — *pretpostavka iz
+jednog oglasa, ne prebrojano; proveri kad se pojavi sledeći takav.* Sadržajno spadaju u otvoreni pre-sales pravac, ali strukturno padaju.

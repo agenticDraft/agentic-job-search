@@ -1,6 +1,6 @@
 ---
 name: cover-letter
-description: Writes a cover letter for Zoran from a job ad and renders it to a one-page PDF. Use when he asks for a cover letter, points at an ad in linkedIn/prijave/, says he is applying somewhere, or asks to re-render an existing letter as PDF. Also writes a per-application headline and summary, but only when he asks for them by name.
+description: Writes a cover letter for Zoran from a job ad and renders it to a one-page PDF. Use when he asks for a cover letter, points at an ad in job-search-manual/prijave/, says he is applying somewhere, or asks to re-render an existing letter as PDF. Also writes a per-application headline and summary, but only when he asks for them by name.
 allowed-tools: Bash(pandoc *) Bash(pdftotext *) Bash(pdfinfo *) Bash(grep *) Bash(wc *)
 ---
 
@@ -10,7 +10,7 @@ One letter per application, written from that specific ad. Never a template with
 company name swapped in — the opening line has to prove the ad was read.
 
 > **No ad?** When the company has no open posting and is marked `INITIATIV` in
-> `linkedIn/lista-oglasa.md`, use **`initiativbewerbung.md`** instead. It covers what
+> `job-search-manual/lista-oglasa.md`, use **`initiativbewerbung.md`** instead. It covers what
 > changes without an ad: the opening comes from their project, and German applications
 > need Eintrittstermin, Gehaltsvorstellung and Zeugnisse or they don't get read.
 
@@ -19,8 +19,8 @@ Read before drafting:
 - `../job-match/candidate-profile.md` — what he may claim, and the gaps he may not hide
 - `../linkedin-post/author-profile.md` — the projects and career arc the proof paragraphs draw on
 - `../linkedin-post/SKILL.md` § Voice — short declarative lines, no hype, no adjective triads
-- `linkedIn/prijave/4.Hostaway-match.md` — worked example: ad at the top, letter under `Cover Letter:`
-- `linkedIn/prijave/5.Genki - cover letter.md` — worked example with an honesty section
+- `job-search-manual/prijave/4.Hostaway-match.md` — worked example: ad at the top, letter under `Cover Letter:`
+- `job-search-manual/prijave/5.Genki - cover letter.md` — worked example with an honesty section
 
 The two examples are the specification. When a rule below and an example disagree,
 the example wins.
@@ -35,11 +35,11 @@ the example wins.
 - [ ] 5. Render PDF and verify one page
 ```
 
-**1. Read the ad and check hard blockers.** The ad lives in `linkedIn/prijave/<n>.<Company>.md`.
+**1. Read the ad and check hard blockers.** The ad lives in `job-search-manual/prijave/<n>.<Company>.md`.
 Run the hard-blocker table in `../job-match/SKILL.md` first — on-site or hybrid, a locked
 environment. If one hits, say so and stop. Don't write a letter for an application he
-shouldn't send. *(Salary is no longer a blocker as of 07.08.2026 — a low stated salary
-never stops a letter. It is a negotiation matter, and the negotiation is his.)*
+shouldn't send. _(Salary is no longer a blocker as of 07.08.2026 — a low stated salary
+never stops a letter. It is a negotiation matter, and the negotiation is his.)_
 
 **2. Find the line worth answering.** Pick one sentence from the ad that he can answer with
 something he actually did, and open by answering it. Both examples do this:
@@ -85,7 +85,7 @@ in context.
    list. "Nobody asked for it."
 5. **Honesty** — the gap, named plainly, when there is one.
 6. **Close** — an offer, not a plea: "Happy to walk you through the harness."
-7. **Sign-off** — `Sincerely,` then his name, then `github.com/zmarkoni`.
+7. **Sign-off** — `Sincerely,` then his name, then `https://github.com/orgs/agenticDraft/repositories`.
 
 Bullets are allowed once, for three items, when mapping to their responsibilities list.
 Everywhere else, prose.
@@ -141,7 +141,7 @@ technology is a keyword filter, not just a wish list (confirmed 08.08.2026).
 ## Headline and summary — only when he asks
 
 Some applications want more than a letter. Genki's asked for a headline and a summary too;
-`linkedIn/prijave/5.Genki - cover letter.md` has all three and is the worked example.
+`job-search-manual/prijave/5.Genki - cover letter.md` has all three and is the worked example.
 
 **Write these only when he names them.** The default deliverable is the letter alone —
 don't volunteer a headline and summary because the last application needed them.
@@ -163,11 +163,11 @@ edits go through `../optimize-profile/SKILL.md`.
 
 ## Files
 
-- **Job ad** — `linkedIn/prijave/<n>.<Company>.md`, the input. Don't edit it. Older
+- **Job ad** — `job-search-manual/prijave/<n>.<Company>.md`, the input. Don't edit it. Older
   files on disk carry a `-match` suffix — legacy, not the pattern.
-- **Letter source** — `linkedIn/prijave/<n>.<Company> - Cover letter.md`
-- **Rendered letter** — `linkedIn/prijave/<n>.<Company> - Cover letter.pdf`
-- **CV variant** — `linkedIn/prijave/<n>.<Company> - CV.md` / `.pdf`. Produced by
+- **Letter source** — `job-search-manual/prijave/<n>.<Company> - Cover letter.md`
+- **Rendered letter** — `job-search-manual/prijave/<n>.<Company> - Cover letter.pdf`
+- **CV variant** — `job-search-manual/prijave/<n>.<Company> - CV.md` / `.pdf`. Produced by
   `../cv-sync/SKILL.md` in step 4, from whichever master CV matches the track `job-match`
   recorded. Same `<n>` as the letter and the ad.
 
@@ -178,7 +178,7 @@ only. Only the YAML frontmatter stays out of the render.
 
 `<n>` is the number the ad already carries from `../job-match/SKILL.md`.
 
-Ads he decided against go in `linkedIn/odbaceni/`. Don't write letters for those.
+Ads he decided against go in `job-search-manual/odbaceni/`. Don't write letters for those.
 
 ## Rendering
 
@@ -198,10 +198,10 @@ Dear Hostaway team,
 Then:
 
 ```bash
-pandoc "linkedIn/prijave/4.Hostaway - Cover letter.md" \
+pandoc "job-search-manual/prijave/4.Hostaway - Cover letter.md" \
   --pdf-engine=typst \
   --template=.claude/skills/cover-letter/letter.typ \
-  -o "linkedIn/prijave/4.Hostaway - Cover letter.pdf"
+  -o "job-search-manual/prijave/4.Hostaway - Cover letter.pdf"
 ```
 
 `letter.typ` carries the letterhead — name, tagline, contact line, rule. Override any of
