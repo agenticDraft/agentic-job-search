@@ -12,11 +12,12 @@ Read both before drafting:
 - `author-profile.md` — who Zoran is, what he has actually done, which claims are his to make.
 - `reference-posts.md` — the voice to match, with a breakdown of what makes each post work.
 - read previous posts in `linkedIn-posts/` to avoid repeating ideas. If a post is too similar to an existing one, either merge the ideas or write a new one with a different angle. Also keep same voice and cadence, so the posts feel like they come from the same person.
+- if the new post continues the previous one, also read `linkedIn-posts/hronologija-postova.md` (see Series below).
 
 ## Where posts go
 
 New posts go in `linkedIn-posts/` as `<n>-post.md`, where `<n>` is the next free number.
-The file contains the post body — text ready to paste into LinkedIn — followed by an optional `---` separator and one `Image:` line (see Structure). No frontmatter, no title heading, no other commentary.
+The file contains the post body — text ready to paste into LinkedIn — followed by a `---` separator, one `Image:` line and one `Artifact:` line (see Structure). The body opens with a series title line (see Title and link below). No frontmatter, no `#` heading, no other commentary.
 
 ## Voice
 
@@ -71,13 +72,30 @@ it.
 ### Series — every post builds on the previous one
 
 Posts are a series, not standalone. Before drafting, read the last post in
-`linkedIn-posts/` and open the new one by picking up its loose end in one line ("Last post
+`linkedIn-posts/` and decide first whether the new post continues it — the user may say
+so ("6 continues 5"), or the last post may promise it ("That part comes next.").
+
+If it is a continuation, read `linkedIn-posts/hronologija-postova.md` before writing. It
+holds what the last post only implies: the arc of the whole series, the open ends each
+post left, what was already promised as "next", reach per post, and draft plans for the
+following posts. Without it, a continuation tends to answer only the last post's final
+line and miss the promise the series is actually carrying.
+
+Then open the new post by picking up the previous post's loose end in one line ("Last post
 I wrote about… This one is what happened next."). Close by naming what the next post will
 cover, when that is known. If there is no honest continuation, say so and ask — don't
 force a link.
 Watch out: in Zoran's posts 2–5 the "last post…" openers did not visibly raise
 reach (191–332 impressions) — so the opener must also stand alone for a reader who never
 saw the previous post. Do not make the hook depend on it.
+
+**Every post in a series takes a different angle.** The series gives the order (the next
+stretch of the story); the angle gives the post its own reason to exist: who it speaks to
+and which tension it names (architecture, tech leadership, testing, design handoff, code
+review, stakeholders, numbers…). Name the angle before drafting and check it against the
+angles already used in `hronologija-postova.md`; if it repeats one, pick another or ask.
+Zoran posts twice a week on one theme, so without a fresh angle the feed reads as the same
+post again — and a reader who sees only this one post still needs a whole idea.
 
 ### Image — every post gets one
 
@@ -86,6 +104,46 @@ diagram of the mechanism, a screenshot of the real artifact (PR template, gate o
 skill file), or a before/after. Real artifacts beat stock or generated art. Do not put the
 image inside the `<n>-post.md` body; add a final line `Image: <what and why>` below a
 `---` separator so it is clearly not paste-ready text.
+
+### Companion artifact — every post gets one
+
+Each post also gets a companion page published with the Artifact tool, which Zoran shares
+publicly. The post has room for one idea; the page holds the depth behind it, so a reader
+who wants the mechanism can follow it. The image usually comes from this page.
+
+- **Reference:** https://claude.ai/artifact/QxwwUap8QwFh6mmo2cpfuv (agentic-core). Reuse
+  its look: dark navy, Manrope + DM Mono, spectrum accents, square edges, with figures
+  drawn at 1200×627 so a screenshot is the post's image.
+- **Content:** the post's idea at full depth, from the same angle as the post, with the real
+  artifact, diagram or run moment behind it. Same truthfulness rules as the post.
+- **Source file:** `.claude/artifacts/<n>-post.html` (gitignored), republished from the same
+  path so the URL stays stable.
+- **Public means public.** Build it only from material that can be public (READMEs, tracked
+  code, what Zoran said in the conversation). Anything from local-only or gitignored notes
+  (run logs, ticket ids, internal docs) needs Zoran's yes before it goes on the page.
+- **Sharing is Zoran's step.** A published artifact starts private; he makes it public from
+  the page's Share menu. Say so when handing over the link.
+- Record the URL in the post file under the `---` separator as `Artifact: <url>`, after the
+  `Image:` line.
+
+### Title and link — every post
+
+- **Title:** the first line of the post body, format `<Series> · Part <n> · <Topic>`,
+  followed by a blank line. The series name is identical in every part; only `n` and
+  `Topic` change. It gives a reader who lands on one post a place in the series.
+- **Link:** never in the post body. LinkedIn tends to reach a post less when the body links
+  out (not verified for Zoran's account), and the comment is where the depth belongs anyway.
+  The artifact link is posted as the first comment right after publishing.
+- **Reminder in the file:** below the `---` separator, before `Image:`, add a block so the
+  step is not forgotten:
+
+  ```
+  REMINDER — after publishing, paste this as the first comment:
+  The full write-up, with <what the page shows, e.g. the diagram of X>: <artifact url>
+  ```
+
+  The comment names what is behind the link in one calm line, then the link. A bare
+  "More info at:" gives the reader no reason to click.
 
 ## Hooks
 

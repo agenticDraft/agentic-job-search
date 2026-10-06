@@ -85,7 +85,8 @@ in context.
    list. "Nobody asked for it."
 5. **Honesty** — the gap, named plainly, when there is one.
 6. **Close** — an offer, not a plea: "Happy to walk you through the harness."
-7. **Sign-off** — `Sincerely,` then his name, then `https://github.com/orgs/agenticDraft/repositories`.
+7. **Sign-off** — `Sincerely,` then his name. Nothing under the name: the GitHub link lives
+   in the letterhead (see § Rendering), and a second copy in the footer is noise.
 
 Bullets are allowed once, for three items, when mapping to their responsibilities list.
 Everywhere else, prose.
@@ -207,6 +208,12 @@ pandoc "job-search-manual/prijave/4.Hostaway - Cover letter.md" \
 `letter.typ` carries the letterhead — name, tagline, contact line, rule. Override any of
 them per letter with `-M tagline="..."`; `role`, `company` and `location` come from the
 frontmatter. Requires `pandoc` and `typst` (both installed via Homebrew).
+
+The contact block is one item per line — email, then GitHub, then LinkedIn — never joined
+on one line. A joined line once rendered as a single broken URL
+(`…/zoranzokimarkovic/%20https://github.com/…`) that neither link survived. A
+`-M contact="..."` override keeps the same shape: separate the items with typst line breaks
+(` \` at the end of a line), not with `|` or spaces.
 
 ## Verify
 

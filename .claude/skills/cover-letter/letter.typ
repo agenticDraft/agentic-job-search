@@ -8,7 +8,10 @@
 #v(-4pt)
 #text(size: 10.5pt)[$if(tagline)$$tagline$$else$Senior Front-end Engineer & Technical Lead · Berlin, Germany$endif$]
 #v(-6pt)
-#text(size: 9pt, fill: rgb("#555555"))[$if(contact)$$contact$$else$markonimobile\@gmail.com | github.com/zmarkoni$endif$]
+// One contact item per line, never joined on one line: email, GitHub, LinkedIn.
+#text(size: 9pt, fill: rgb("#555555"))[$if(contact)$$contact$$else$markonimobile\@gmail.com \
+#link("https://github.com/orgs/agenticDraft/repositories")[https://github.com/orgs/agenticDraft/repositories] \
+#link("https://linkedin.com/in/zoranzokimarkovic/")[https://linkedin.com/in/zoranzokimarkovic/]$endif$]
 #v(2pt)
 #line(length: 100%, stroke: 0.5pt + rgb("#cfcfcf"))
 #v(2pt)

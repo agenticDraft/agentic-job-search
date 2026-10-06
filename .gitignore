@@ -16,3 +16,6 @@ job-search-automation/
 job-search-manual/
 linkedin-posts/ 
 CLAUDE.md
+.claude/artifacts/
+.claude/skills/job-source-recon/next-task.md
+.claude/skills/cover-letter/initiativbewerbung.md
