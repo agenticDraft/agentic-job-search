@@ -1,5 +1,5 @@
 ---
-name: linkedin-mail
+name: linkedin-mail-jobs
 description: Čita nove LinkedIn job-alert mejlove preko Gmail MCP-a, traži pun opis oglasa na sajtu firme, i ubacuje ih u job-search-automation pipeline. Koristi kad Zoran kaže da proveriš LinkedIn alerte, kaže „proveri linkedin mejlove", ili pita ima li nečeg novog u alert mejlovima.
 ---
 # LinkedIn alert mejlovi → pipeline
@@ -13,9 +13,9 @@ sajta firme ili sa njihovog ATS-a (Greenhouse, Lever, Personio, SmartRecruiters,
 
 ## Odakle mejlovi
 
-Gmail MCP, ne skripta. Faza sa sopstvenim OAuth-om (`fetch-linkedin-mail.mjs`) je odložena —
+Gmail MCP, ne skripta. Faza sa sopstvenim OAuth-om (`fetch-linkedin-mail-jobs.mjs`) je odložena —
 potrebna je tek ako se ovo bude vrtelo iz crona, bez Claude sesije. Kad se doda, piše
-**isti** `data/raw/linkedin-mail-<datum>.json`, pa se koraci ispod ne menjaju.
+**isti** `data/raw/linkedin-mail-jobs-<datum>.json`, pa se koraci ispod ne menjaju.
 
 Pretraga: `from:jobalerts-noreply@linkedin.com newer_than:<N>d`. Prozor bira Zoran u
 zahtevu, a **difolt je 1 dan**: poslednja 24 sata, ne kalendarski dan. Dnevni alerti
@@ -43,11 +43,11 @@ Alerti su već filtrirani na LinkedIn-u: Zoran je sam podesio sačuvane pretrage
 Frontend Developer, Automation Engineer, Generative AI Engineer, AI Transformation…). Svaki
 oglas iz mejla je zato već „u struci" po njegovoj odluci.
 
-Filter struke iz `podesavanja.json` (`struka.naslov`) je pisan za široke izvore
-(arbeitnow, remotely, workwise) i pokriva samo front-end. Nad alertima bi izbacio sve
-AI/automation role. Izmereno 28.09.2026: propustio je 5 od 38 oglasa, i to samo
-front-end. Zato svaki prolaz ovog skilla ide sa **`--all`**. Ne predlaži izmenu
-`podesavanja.json` da bi alerti prošli.
+Filter struke iz `podesavanja.json` (`struka.naslov`) pokriva samo front-end i nad alertima
+bi izbacio sve AI/automation role (izmereno 28.09.2026: propustio je 5 od 38 oglasa). Od
+06.10.2026 je filter **isključen po difoltu** (uključuje se samo sa `--struka`), pa
+prolaz ovog skilla ne traži nikakav dodatni flag. Nikad ne dodavaj `--struka` ovde i ne
+predlaži izmenu `podesavanja.json` da bi alerti prošli.
 
 Dedupe i blokeri (`src/blockers.mjs`) ostaju. Oni ne čitaju `podesavanja.json` i
 proveravaju stvarne uslove oglasa (remote, nivo, ugovor), ne profesiju.
@@ -60,9 +60,9 @@ proveravaju stvarne uslove oglasa (remote, nivo, ugovor), ne profesiju.
    Uzmi **`plaintextBody`, nikad `htmlBody`.** Izmereno 06.08.2026: plaintext 9,8 KB
    naspram HTML 169,7 KB, a plaintext već ima naslov/firmu/lokaciju u zasebnim redovima.
    `get_message` ionako prelije rezultat u fajl zbog veličine — tada radi `jq -r '.plaintextBody'` nad tim fajlom umesto da čitaš ceo JSON u kontekst.
-2. **Isparsiraj.** `parseAlertMails` iz `src/ingest/linkedin-mail.mjs` — prima
+2. **Isparsiraj.** `parseAlertMails` iz `src/search/linkedin-mail-jobs.mjs` — prima
    `[{ id, date, plaintextBody }]`, vraća jedinstvene stubove (dedupe po job ID-u, jer se
-   dnevni alerti preklapaju). Upiši ih u `data/raw/linkedin-mail-<datum>.json`, gde je
+   dnevni alerti preklapaju). Upiši ih u `data/raw/linkedin-mail-jobs-<datum>.json`, gde je
    `<datum>` dan pokretanja, a ne dan mejlova. Ako fajl već postoji, jer je prolaz tog
    dana već rađen, dodaj nove stubove u njega (jedinstveno po `url`). Ne prepisuj ga,
    inače se gube stubovi i opisi iz ranijeg prolaza.
@@ -94,14 +94,14 @@ proveravaju stvarne uslove oglasa (remote, nivo, ugovor), ne profesiju.
      preskoči. **Ne biraj sam kad nisi siguran.**
    - **Nema pogotka**: ostavi stub bez opisa u raw fajlu i zapamti da je takav. Vidi
      § Nevalidirani oglasi ispod.
-5. **Prepiši** `data/raw/linkedin-mail-<datum>.json` dopunjenim stubovima — isti fajl, isto
+5. **Prepiši** `data/raw/linkedin-mail-jobs-<datum>.json` dopunjenim stubovima — isti fajl, isto
    ime, samo dodati `description`/`descriptionUrl`.
-6. **Suvi prolaz.** `node run.mjs --dry --all --izvori=linkedin-mail --from-raw=data/raw/linkedin-mail-<datum>.json`
-   i pokaži Zoranu levak izveštaj. U levku mora da stoji `(--all: filter iskljucen)`.
-   Ako ne stoji, zaboravljen je `--all`.
+6. **Suvi prolaz.** `node run.mjs --dry --izvori=linkedin-mail-jobs --from-raw=data/raw/linkedin-mail-jobs-<datum>.json`
+   i pokaži Zoranu levak izveštaj. U levku mora da stoji `(filter struke iskljucen)`.
+   Ako stoji `(--struka: filter ukljucen)`, komanda je pogrešna.
 7. **Tek posle njegove potvrde** pokreni istu komandu bez `--dry`. Dosijei dobijaju
-   datum prolaza kao sufiks (`novi-oglasi/<n>.<Firma> - <datum>.md`,
-   `proveriti/<Firma> - <naslov> - <datum>.md`) — to radi `src/dossier.mjs`, ne ručno.
+   datum prolaza kao sufiks (`linkedin-mail-jobs/<n>.<Firma> - <datum>.md`,
+   `linkedin-mail-jobs/proveriti/<Firma> - <naslov> - <datum>.md`) — to radi `src/dossier.mjs`, ne ručno.
 8. **Završni izveštaj uvek sadrži listu nevalidiranih oglasa** (v. ispod), i kad je
    korak 7 preskočen.
 
@@ -126,7 +126,7 @@ stigao u mejlu. Ista pravila važe za dvosmislene pogotke koje je Zoran preskoč
 ## Prazan opis obara filtriranje — ovo je glavna zamka
 
 Blokeri (`src/blockers.mjs`) i rang (`src/rank.mjs`) rade **nad tekstom opisa**. Stub bez
-opisa nema šta da obori, pa **prolazi sve blokere sa rangom 0** i završi u `novi-oglasi/`
+opisa nema šta da obori, pa **prolazi sve blokere sa rangom 0** i završi u `linkedin-mail-jobs/`
 kao da je čist. Izmereno 06.08.2026 nad fixture podacima: 8 od 8 stubova bez opisa prošlo
 sve blokere.
 
