@@ -97,6 +97,15 @@ angles already used in `hronologija-postova.md`; if it repeats one, pick another
 Zoran posts twice a week on one theme, so without a fresh angle the feed reads as the same
 post again — and a reader who sees only this one post still needs a whole idea.
 
+**Delivery Factory series: read the code before writing.** The series' source of truth is
+`/Users/zoranmarkovic/github/agenticDraft/aem-eds-ai-workflow-demo` (start from its
+`CLAUDE.md`). Before writing any sentence about what a plugin or stage does, open its
+actual scripts, `SKILL.md` and `pack.yaml`. A README, a doc or the series plan is not
+enough: they can disagree with the code, and the post must say what the code does. The
+grounding moment (incident, run, commit) comes from that repo too, never from a plausible
+mechanism you derived. Git-tracked files and commit messages may go public; its `docs/` is
+gitignored, so anything from there needs Zoran's yes first.
+
 ### Image — every post gets one
 
 Each post ships with an image, as in the colleague's series. Propose it with the draft: a
@@ -107,22 +116,27 @@ image inside the `<n>-post.md` body; add a final line `Image: <what and why>` be
 
 ### Companion artifact — every post gets one
 
-Each post also gets a companion page published with the Artifact tool, which Zoran shares
-publicly. The post has room for one idea; the page holds the depth behind it, so a reader
-who wants the mechanism can follow it. The image usually comes from this page.
+Each post also gets a public companion page on GitHub Pages (decided 2026-10-08, replacing
+claude.ai artifacts). The post has room for one idea; the page holds the depth behind it, so
+a reader who wants the mechanism can follow it. The image usually comes from this page.
 
 - **Reference:** https://claude.ai/artifact/QxwwUap8QwFh6mmo2cpfuv (agentic-core). Reuse
   its look: dark navy, Manrope + DM Mono, spectrum accents, square edges, with figures
   drawn at 1200×627 so a screenshot is the post's image.
 - **Content:** the post's idea at full depth, from the same angle as the post, with the real
   artifact, diagram or run moment behind it. Same truthfulness rules as the post.
-- **Source file:** `.claude/artifacts/<n>-post.html` (gitignored), republished from the same
-  path so the URL stays stable.
-- **Public means public.** Build it only from material that can be public (READMEs, tracked
-  code, what Zoran said in the conversation). Anything from local-only or gitignored notes
-  (run logs, ticket ids, internal docs) needs Zoran's yes before it goes on the page.
-- **Sharing is Zoran's step.** A published artifact starts private; he makes it public from
-  the page's Share menu. Say so when handing over the link.
+- **Source file:** `.claude/artifacts/<n>-post.html` (gitignored), written without
+  `<!doctype>`/`<head>`/`<body>`.
+- **Where it is published:** the `gh-pages` branch of `agenticDraft/aem-eds-ai-workflow-demo`
+  (the repo the series describes), as `post-<n>/index.html`, plus a line in the root
+  `index.html` series list. URL: `https://agenticdraft.github.io/aem-eds-ai-workflow-demo/post-<n>/`.
+  To publish: wrap the source in a doctype, `<head>` with charset and viewport meta, and
+  `<body>`; commit to `gh-pages`; push (SSH, outside the sandbox); check the URL returns 200.
+- **Public means public, the moment it is pushed.** There is no private step anymore. Build it
+  only from material that can be public (READMEs, tracked code, commit messages, what Zoran
+  said in the conversation). Anything from local-only or gitignored notes (run logs, ticket
+  ids, internal docs) needs Zoran's yes before it goes on the page, and confirm with him
+  before each push.
 - Record the URL in the post file under the `---` separator as `Artifact: <url>`, after the
   `Image:` line.
 
